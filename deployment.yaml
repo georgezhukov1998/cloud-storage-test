@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: csi-gcs-test-1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: csi-gcs-test-1
+    spec:
+      containers:
+      - name: csi-gcs-test-1
+        image: gcr.io/psyched-service-288319/myimage:latest
+        command:
+        - sleep
+        - infinity
+        volumeMounts:
+        - name: csi-gcs-vol
+          mountPath: /mnt/gcs
+      volumes:
+      - name: csi-gcs-vol
+        persistentVolumeClaim:
+          claimName: csi-gcs-pvc
